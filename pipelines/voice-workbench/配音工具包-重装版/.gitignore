@@ -1,0 +1,25 @@
+# 含密钥——永不提交
+config.json
+
+# 个人音色 / 跑批数据(各人自备, 别外传)
+models/锚点*.npz
+models/参考音频*.mp3
+models/参考文本.txt
+models/*缓存*.json
+models/*台账*.jsonl
+models/*指标*.jsonl
+models/语料清单.jsonl
+models/最近输出.txt
+
+# 大模型(自行下载)
+models/*.onnx
+
+# 产物 / 输入稿
+output/
+文案.txt
+*.mp3
+*.srt
+
+# Python
+__pycache__/
+*.pyc

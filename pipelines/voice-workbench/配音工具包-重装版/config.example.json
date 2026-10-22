@@ -1,0 +1,84 @@
+{
+  "api_key": "",
+  "voice_id": "",
+  "model": "s2-pro",
+  "synth_unit": "paragraph",
+  "split_mode": "smart",
+  "max_chars": 30,
+  "min_unit_chars": 25,
+  "emphasis_units": false,
+  "emphasis_gap": 0.5,
+  "emphasis_gap_after": 0.65,
+  "convert_parens": true,
+  "normalize_numbers": true,
+  "pronounce": {
+    "校验": "教验",
+    "重装": "虫装",
+    "一本线": "医本线",
+    "ta": "他",
+    "巴甫洛夫": "巴普洛夫",
+    "全盘": "全磐",
+    "没那么差": "没那么岔",
+    "考得差": "考得岔",
+    "考差": "考岔",
+    "最差": "最岔",
+    "有多差": "有多岔",
+    "祛魅": "去魅",
+    "力竭": "力杰",
+    "不一定": "部一定"
+  },
+  "temperature": 0.6,
+  "top_p": 0.72,
+  "normalize": true,
+  "condition_on_previous_chunks": true,
+  "repetition_penalty": 1.2,
+  "prosody": {
+    "speed": 1,
+    "volume": 0,
+    "normalize_loudness": true
+  },
+  "chunk_length": 300,
+  "min_chunk_length": 50,
+  "format": "mp3",
+  "sample_rate": 44100,
+  "mp3_bitrate": 192,
+  "latency": "normal",
+  "merge": true,
+  "parallel": {
+    "workers": 3,
+    "roll_width": 2,
+    "api_concurrency": 4
+  },
+  "rhythm_line_end": true,
+  "gap": 0.2,
+  "paragraph_gap": 0.45,
+  "chapter_gap": 1.0,
+  "qc": {
+    "enable": true,
+    "anchor_frozen": true,
+    "target_sim": 0.95,
+    "target_tiers": [
+      [
+        0,
+        0.95
+      ]
+    ],
+    "auto_reroll": 10,
+    "sim_yellow": null,
+    "sim_red": null,
+    "speed_warn": 0.25,
+    "speed_red": 0.4,
+    "short_dur": 2.5,
+    "reroll_budget": 5.0,
+    "rhythm_reroll": 3,
+    "rhythm_penalty": 0.01,
+    "rhythm": {
+      "enable": true,
+      "rate_lo": 4.4,
+      "rate_hi": 6.2,
+      "pause_lo": 0.22,
+      "pause_hi": 0.48,
+      "cpp_hi": 40
+    }
+  }
+}

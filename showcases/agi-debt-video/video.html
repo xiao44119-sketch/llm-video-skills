@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1920,height=1080">
+<title>被看见的负债｜骁清Finn</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#080808;font-family:"Microsoft YaHei","PingFang SC",sans-serif}
+#root{position:relative;width:1920px;height:1080px;overflow:hidden;color:#e8e6df}
+.bg-base{position:absolute;inset:0;background:radial-gradient(1200px 800px at 30% 20%,#121010,#080808 72%)}
+.bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,59,59,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,59,59,.05) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(circle at 50% 45%,#000 25%,transparent 78%)}
+.bg-glow{position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(255,59,59,.07),transparent 65%);top:-180px;right:-140px}
+.bg-aura{position:absolute;width:650px;height:650px;border-radius:50%;border:1px solid rgba(212,175,55,.08);bottom:-240px;left:-160px}
+.scene{position:absolute;inset:0;visibility:hidden;opacity:0;overflow:hidden}
+.scene.active{visibility:visible;opacity:1}
+.ep-tag{position:absolute;top:54px;left:80px;display:flex;align-items:center;gap:14px;font-size:21px;color:#8a8a8a;letter-spacing:2px}
+.ep-tag .bar{width:34px;height:4px;background:linear-gradient(90deg,#ff3b3b,transparent);border-radius:2px}
+.ep-tag b{color:#ff3b3b;font-weight:700}
+.hd{position:absolute;left:50%;top:7%;transform:translateX(-50%);text-align:center;opacity:0;white-space:nowrap}
+.hd .t{font-size:50px;font-weight:900;color:#fff;letter-spacing:2px}
+.hd .t b{color:#ff3b3b}
+.hd .t .g{color:#d4af37}
+.pill{font-size:32px;font-weight:900;color:#fff;padding:18px 50px;border-radius:44px;border:2px solid #ff3b3b;background:rgba(255,59,59,.10);letter-spacing:3px;box-shadow:0 0 26px rgba(255,59,59,.3)}
+.pill b{color:#ff6b6b}
+.pill.gold{border-color:#d4af37;background:rgba(212,175,55,.10);box-shadow:0 0 26px rgba(212,175,55,.3)}
+.pill.gold b{color:#f1c40f}
+.pill.green{border-color:#7ee0a3;background:rgba(126,224,163,.08);box-shadow:0 0 26px rgba(126,224,163,.25)}
+.pill.green b{color:#7ee0a3}
+
+/* ===== S1 雷霆 Hook ===== */
+#flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(255,40,40,.85),rgba(255,40,40,.4) 30%,rgba(180,20,20,.15) 55%,transparent 75%);opacity:0;pointer-events:none;z-index:50}
+.s1-quiet{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);text-align:center;opacity:0;white-space:nowrap}
+.s1-quiet .t{font-size:44px;font-weight:300;color:#c8c8c8;letter-spacing:6px;font-family:"SimSun","Songti SC",serif}
+.s1-thunder{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);text-align:center;opacity:0;white-space:nowrap}
+.s1-thunder .t{font-size:72px;font-weight:900;color:#ff3b3b;letter-spacing:3px;text-shadow:0 0 60px rgba(255,59,59,.7),0 0 120px rgba(255,59,59,.4)}
+.s1-thunder .t .sm{font-size:40px;color:#e8e6df;font-weight:700}
+.s1-end{position:absolute;left:50%;top:72%;transform:translateX(-50%);opacity:0;white-space:nowrap}
+
+/* ===== S2 概率降维 ===== */
+.s2-cards{position:absolute;left:50%;top:24%;transform:translateX(-50%);display:flex;flex-direction:column;gap:22px;opacity:0;width:1100px}
+.s2-card{width:100%;height:150px;border-radius:20px;display:flex;align-items:center;gap:30px;padding:0 44px;border:2px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03)}
+.s2-card .ic{font-size:48px;width:70px;text-align:center}
+.s2-card .k{font-size:34px;font-weight:900;color:#fff;width:280px}
+.s2-card .ds{flex:1;font-size:24px;color:#b0b0b0;line-height:1.4}
+.s2-card.time .k{color:#ff6b6b}
+.s2-card.geo .k{color:#ff8c42}
+.s2-card.gene .k{color:#7ee0a3}
+.s2-card .hl{font-size:28px;font-weight:900}
+.s2-card.time .hl{color:#ff3b3b}
+.s2-card.geo .hl{color:#ff8c42}
+.s2-card.gene .hl{color:#7ee0a3}
+.s2-note{position:absolute;left:50%;top:80%;transform:translateX(-50%);opacity:0;white-space:nowrap}
+
+/* ===== S3 时代杠杆 ===== */
+.s3-fiber{position:absolute;left:50%;top:28%;transform:translateX(-50%);width:900px;height:320px;opacity:0}
+.s3-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:420px;height:200px;border-radius:24px;border:2px solid rgba(212,175,55,.7);background:linear-gradient(160deg,rgba(212,175,55,.18),rgba(212,175,55,.03));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;box-shadow:0 0 50px rgba(212,175,55,.3)}
+.s3-core .k{font-size:36px;font-weight:900;color:#f1c40f;text-align:center}
+.s3-core .s{font-size:22px;color:#b0b0b0;text-align:center}
+.s3-arrow{position:absolute;font-size:40px;color:#d4af37;opacity:0}
+.s3-arrow.a1{left:80px;top:50%;transform:translateY(-50%)}
+.s3-arrow.a2{right:80px;top:50%;transform:translateY(-50%) rotate(180deg)}
+.s3-arrow.a3{left:50%;top:20px;transform:translateX(-50%) rotate(-90deg)}
+.s3-arrow.a4{left:50%;bottom:20px;transform:translateX(-50%) rotate(90deg)}
+.s3-note{position:absolute;left:50%;top:78%;transform:translateX(-50%);opacity:0;white-space:nowrap}
+
+/* ===== S4 善意概率流 ===== */
+.s4-flow{position:absolute;left:50%;top:26%;transform:translateX(-50%);width:1200px;height:380px;opacity:0}
+.s4-pipe{position:absolute;left:0;top:50%;transform:translateY(-50%);width:260px;height:120px;border-radius:16px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.04);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.s4-pipe .k{font-size:28px;font-weight:900;color:#fff}
+.s4-pipe .s{font-size:18px;color:#8a8a8a}
+.s4-split{position:absolute;left:300px;top:50%;width:120px;height:4px;background:linear-gradient(90deg,#888,transparent)}
+.s4-stream{position:absolute;right:0;width:700px;height:160px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:0 30px}
+.s4-stream.up{top:20px;border:2px solid rgba(212,175,55,.7);background:linear-gradient(160deg,rgba(212,175,55,.15),rgba(212,175,55,.02));box-shadow:0 0 40px rgba(212,175,55,.25)}
+.s4-stream.up .k{font-size:34px;font-weight:900;color:#f1c40f}
+.s4-stream.down{bottom:20px;border:2px solid rgba(255,59,59,.5);background:linear-gradient(160deg,rgba(255,59,59,.10),rgba(255,59,59,.02));box-shadow:0 0 40px rgba(255,59,59,.2)}
+.s4-stream.down .k{font-size:30px;font-weight:900;color:#ff6b6b}
+.s4-stream .s{font-size:20px;color:#b0b0b0;text-align:center}
+.s4-musk{position:absolute;left:50%;top:72%;transform:translateX(-50%);opacity:0;white-space:nowrap;text-align:center}
+.s4-musk .q{font-size:28px;font-weight:700;color:#d4af37;font-style:italic}
+.s4-musk .who{font-size:20px;color:#8a8a8a;margin-top:6px}
+
+/* ===== S5 终极号召 ===== */
+.s5-dawn{position:absolute;inset:0;background:linear-gradient(180deg,rgba(212,175,55,.06) 0%,transparent 40%);opacity:0}
+.s5-main{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);text-align:center;opacity:0;white-space:nowrap}
+.s5-main .k{font-size:64px;font-weight:900;color:#fff;letter-spacing:4px;line-height:1.4}
+.s5-main .k b{color:#f1c40f;text-shadow:0 0 60px rgba(241,196,15,.6)}
+.s5-sub{position:absolute;left:50%;top:60%;transform:translate(-50%,-50%);text-align:center;opacity:0;white-space:nowrap}
+.s5-sub .k{font-size:36px;font-weight:900;color:#ff6b6b;letter-spacing:6px}
+.s5-end{position:absolute;left:50%;top:76%;transform:translateX(-50%);opacity:0;white-space:nowrap}
+
+/* ===== S6 收尾 ===== */
+.s6-glow{position:absolute;left:50%;top:0;transform:translateX(-50%);width:1800px;height:900px;background:radial-gradient(ellipse at 50% 0%,rgba(255,220,150,.22),transparent 60%);opacity:0;z-index:5}
+.s6-main{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);text-align:center;opacity:0;z-index:6;white-space:nowrap}
+.s6-main .k{font-size:68px;font-weight:900;color:#f1c40f;letter-spacing:5px;text-shadow:0 0 70px rgba(241,196,15,.8)}
+.s6-end{position:absolute;left:50%;top:62%;transform:translate(-50%,-50%);text-align:center;opacity:0;z-index:6;white-space:nowrap}
+.s6-end .k{font-size:38px;font-weight:900;color:#fff;letter-spacing:2px}
+.s6-end .k b{color:#f1c40f}
+.s6-flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.85),rgba(255,255,255,.3));opacity:0;pointer-events:none;z-index:50}
+
+.beam{position:absolute;top:0;bottom:0;left:-45%;width:45%;z-index:30;background:linear-gradient(90deg,transparent,rgba(255,59,59,.10),rgba(255,59,59,.85),rgba(255,59,59,.10),transparent);transform:translateX(0);opacity:0;filter:blur(1px);pointer-events:none}
+#subtitle{position:absolute;left:50%;bottom:52px;transform:translateX(-50%);z-index:40;max-width:1740px;text-align:center;font-size:40px;font-weight:700;color:#fff;line-height:1.5;text-shadow:0 0 4px #000,0 0 4px #000,2px 2px 4px #000,-2px -2px 4px #000,2px -2px 4px #000,-2px 2px 4px #000;opacity:0;white-space:pre-line}
+#subtitle .k{color:#ff6b6b}
+#subtitle .rk{color:#ff3b3b}
+#subtitle .g{color:#f1c40f}
+</style>
+</head>
+<body>
+<div id="root">
+  <div class="bg-base"></div>
+  <canvas id="stars" width="1920" height="1080"></canvas>
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+  <div class="bg-aura"></div>
+
+  <!-- S1 雷霆 Hook -->
+  <section id="s1" class="scene">
+    <div class="ep-tag"><span class="bar"></span>抗周期心力 · 特别篇 <b>· 骁清Finn</b></div>
+    <div class="s1-quiet" id="s1-quiet"><div class="t">我感谢我的父亲。</div></div>
+    <div class="s1-thunder" id="s1-thunder"><div class="t">毕竟他没在<span class="sm">一出生时</span>就抛弃我</div></div>
+    <div class="s1-end" id="s1-end"><div class="pill">养育了我这么大</div></div>
+    <div id="flash"></div>
+  </section>
+
+  <!-- S2 概率降维 -->
+  <section id="s2" class="scene">
+    <div class="ep-tag"><span class="bar"></span>抗周期心力 · 特别篇 <b>· 骁清Finn</b></div>
+    <div class="hd" id="s2-title"><div class="t">你把太多<b>特权</b>，活成了<span class="g">理所当然</span></div></div>
+    <div class="s2-cards" id="s2-cards">
+      <div class="s2-card time" id="s2-time"><div class="ic">⏳</div><div class="k">时间·200年前</div><div class="ds">这片土地上的<span class="hl">识字率仅 1%</span></div></div>
+      <div class="s2-card geo" id="s2-geo"><div class="ic">🌍</div><div class="k">地理·坐标偏移</div><div class="ds">你可能正出生在<span class="hl">战火中东</span>，或<span class="hl">赤贫非洲</span></div></div>
+      <div class="s2-card gene" id="s2-gene"><div class="ic">🧬</div><div class="k">基因·生存彩票</div><div class="ds"><span class="hl">全须全尾</span>，无先天畸形与恶疾</div></div>
+    </div>
+    <div class="s2-note" id="s2-note"><div class="pill green">你已经中了全人类<span class="b">最罕见的生存彩票</span></div></div>
+  </section>
+
+  <!-- S3 时代杠杆 -->
+  <section id="s3" class="scene">
+    <div class="ep-tag"><span class="bar"></span>抗周期心力 · 特别篇 <b>· 骁清Finn</b></div>
+    <div class="hd" id="s3-title"><div class="t"><span class="g">低摩擦·零摩擦</span>的时代敞口</div></div>
+    <div class="s3-fiber" id="s3-fiber">
+      <div class="s3-core" id="s3-core"><div class="k">极低成本对话<br>前沿高智能</div><div class="s">几块钱 = 人类历史最高智能</div></div>
+      <div class="s3-arrow a1" id="s3-a1">➜</div>
+      <div class="s3-arrow a2" id="s3-a2">➜</div>
+      <div class="s3-arrow a3" id="s3-a3">➜</div>
+      <div class="s3-arrow a4" id="s3-a4">➜</div>
+    </div>
+    <div class="s3-note" id="s3-note"><div class="pill gold">所有的被看见，都是<span class="b">极其昂贵的恩赐与偶然</span></div></div>
+  </section>
+
+  <!-- S4 善意概率流 -->
+  <section id="s4" class="scene">
+    <div class="ep-tag"><span class="bar"></span>抗周期心力 · 特别篇 <b>· 骁清Finn</b></div>
+    <div class="hd" id="s4-title"><div class="t">占用资源却不创造价值 = <b>让世界加速下坠</b></div></div>
+    <div class="s4-flow" id="s4-flow">
+      <div class="s4-pipe"><div class="k">社会稀缺资源</div><div class="s">你占用的每一份</div></div>
+      <div class="s4-split"></div>
+      <div class="s4-stream up" id="s4-up"><div class="k">↑ 善意概率流</div><div class="s">让宇宙更多落进善意</div></div>
+      <div class="s4-stream down" id="s4-down"><div class="k">↓ 让世界变得更恶劣</div><div class="s">德不配位，必遭清算</div></div>
+    </div>
+    <div class="s4-musk" id="s4-musk"><div class="q">"我一生努力的核心，就是想让这个宇宙更多地落进善意的概率流里。"</div><div class="who">—— 马斯克</div></div>
+  </section>
+
+  <!-- S5 终极号召 -->
+  <section id="s5" class="scene">
+    <div class="s5-dawn" id="s5-dawn"></div>
+    <div class="ep-tag"><span class="bar"></span>抗周期心力 · 特别篇 <b>· 骁清Finn</b></div>
+    <div class="s5-main" id="s5-main"><div class="k">感恩不是懦弱<br>是<b>爱生发的地方</b></div></div>
+    <div class="s5-sub" id="s5-sub"><div class="k">打起精神来 · 做有德之人</div></div>
+    <div class="s5-end" id="s5-end"><div class="pill gold">吃到时代顶级红利，<span class="b">把善意还给世界</span></div></div>
+  </section>
+
+  <!-- S6 收尾 -->
+  <section id="s6" class="scene">
+    <div class="s6-glow" id="s6-glow"></div>
+    <div class="ep-tag"><span class="bar"></span>抗周期心力 · 特别篇 <b>· 骁清Finn</b></div>
+    <div class="s6-main" id="s6-main"><div class="k">我是骁清 Finn</div></div>
+    <div class="s6-end" id="s6-end"><div class="k">🛰 感兴趣的，<b>进粉丝群一起探讨成长</b></div></div>
+    <div class="s6-flash" id="s6-flash"></div>
+  </section>
+
+  <div class="beam" id="beam"></div>
+  <div id="subtitle"></div>
+</div>
+
+<script>
+(function(){
+  const root=document.getElementById('root');
+  const total=117.3;
+  const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+  const out=v=>1-Math.pow(1-clamp(v),3);
+  const q=id=>document.getElementById(id);
+  const _tr={};
+  const set=(el,p,x=0,y=20,sc=.96)=>{if(!el)return;const z=out(p);if(!(el.id in _tr)){const v=getComputedStyle(el).transform;_tr[el.id]=(v&&v!=='none')?v:'';}const base=_tr[el.id];el.style.opacity=z.toFixed(4);el.style.transform=`${base} translate3d(${((1-z)*x).toFixed(1)}px,${((1-z)*y).toFixed(1)}px,0) scale(${(sc+(1-sc)*z).toFixed(4)})`};
+  const cvs=q('stars'),g=cvs.getContext('2d');
+  const dots=[];for(let i=0;i<100;i++)dots.push({x:Math.random()*1920,y:Math.random()*1080,r:Math.random()*1.5+.4,a:Math.random()*Math.PI*2,sp:.3+Math.random()*.6});
+  let lastT=0;
+  function drawStars(t){g.clearRect(0,0,1920,1080);const dt=t-lastT;lastT=t;for(const d of dots){d.a+=d.sp*dt*.5;const al=.12+.25*Math.abs(Math.sin(d.a));g.beginPath();g.arc(d.x,d.y,d.r,0,Math.PI*2);g.fillStyle=`rgba(255,200,200,${al.toFixed(3)})`;g.fill();}}
+
+  const scenes=['s1','s2','s3','s4','s5','s6'];
+  const starts=[0,13.64,42.06,68.62,95.86,113.02];
+
+  function s1(t){
+    drawStars(t);
+    // 冷白细字 0.2-7s
+    const qp=clamp((t-0.2)/1.0);
+    q('s1-quiet').style.opacity=(qp*(1-clamp((t-7.0)/.5))).toFixed(3);
+    // 7.08 雷霆炸裂
+    const tp=clamp((t-7.08)/0.5);
+    const el=q('s1-thunder');const base='translate(-50%,-50%)';
+    el.style.opacity=out(tp).toFixed(3);
+    el.style.transform=`${base} scale(${(1.4-0.4*tp).toFixed(3)})`;
+    el.style.filter=`blur(${(8-8*tp).toFixed(1)}px)`;
+    // 红色闪光 7.0-7.6
+    const fp=clamp((t-7.0)/0.3);
+    q('flash').style.opacity=(fp*(1-fp)*2.5).toFixed(3);
+    // 结尾胶囊 12.28
+    set(q('s1-end'),(t-12.28)/0.5,0,18,.96);
+  }
+  function s2(t){
+    drawStars(t);
+    set(q('s2-title'),(t-13.9)/0.4,0,-10,.97);
+    set(q('s2-cards'),(t-15.0)/0.6,0,24,.96);
+    // 三张卡逐级点亮
+    q('s2-time').style.opacity=clamp((t-22.0)/.4).toFixed(3);
+    q('s2-geo').style.opacity=clamp((t-26.5)/.4).toFixed(3);
+    q('s2-gene').style.opacity=clamp((t-33.5)/.4).toFixed(3);
+    set(q('s2-note'),(t-39.0)/0.6,0,18,.96);
+  }
+  function s3(t){
+    drawStars(t);
+    set(q('s3-title'),(t-42.3)/0.4,0,-10,.97);
+    set(q('s3-fiber'),(t-44.0)/0.6,0,24,.96);
+    // 倍增箭头逐级弹出
+    set(q('s3-a1'),(t-47.0)/0.4,-20,0,.95);
+    set(q('s3-a2'),(t-49.0)/0.4,20,0,.95);
+    set(q('s3-a3'),(t-51.0)/0.4,0,-20,.95);
+    set(q('s3-a4'),(t-53.0)/0.4,0,20,.95);
+    // 核心脉冲
+    const pl=(Math.sin(t*5)+1)/2;
+    q('s3-core').style.boxShadow=`0 0 ${(30+40*pl).toFixed(0)}px rgba(212,175,55,.35)`;
+    set(q('s3-note'),(t-62.0)/0.6,0,18,.96);
+  }
+  function s4(t){
+    drawStars(t);
+    set(q('s4-title'),(t-68.9)/0.4,0,-10,.97);
+    set(q('s4-flow'),(t-70.5)/0.6,0,24,.96);
+    // 两条流逐级
+    set(q('s4-up'),(t-78.0)/0.5,0,-16,.95);
+    set(q('s4-down'),(t-74.5)/0.5,0,16,.95);
+    // 马斯克金句
+    set(q('s4-musk'),(t-77.5)/0.6,0,18,.96);
+    // 下行流脉冲（警示）
+    const pl=(Math.sin(t*4)+1)/2;
+    q('s4-down').style.boxShadow=`0 0 ${(20+35*pl).toFixed(0)}px rgba(255,59,59,.3)`;
+  }
+  function s5(t){
+    drawStars(t);
+    q('s5-dawn').style.opacity=(.3+.4*clamp((t-96.0)/3)).toFixed(3);
+    const p=clamp((t-96.2)/0.8);
+    const el=q('s5-main');const base='translate(-50%,-50%)';
+    el.style.opacity=out(p).toFixed(3);
+    el.style.transform=`${base} scale(${(1.0+0.06*p).toFixed(3)})`;
+    set(q('s5-sub'),(t-100.0)/0.6,0,16,.96);
+    set(q('s5-end'),(t-108.0)/0.6,0,18,.96);
+  }
+  function s6(t){
+    drawStars(t);
+    const p=clamp((t-113.2)/0.7);
+    const el=q('s6-main');const base='translate(-50%,-50%)';
+    el.style.opacity=out(p).toFixed(3);
+    el.style.transform=`${base} scale(${(1.0+0.05*p).toFixed(3)})`;
+    q('s6-glow').style.opacity=(.2+.5*clamp((t-113.2)/3)).toFixed(3);
+    const en=q('s6-end');const eb='translate(-50%,-50%)';
+    const ep=clamp((t-114.5)/0.6);
+    en.style.opacity=out(ep).toFixed(3);
+    en.style.transform=`${eb} scale(${(0.85+0.15*ep).toFixed(3)})`;
+    const fp=clamp((t-116.5)/0.9);
+    q('s6-flash').style.opacity=(fp*.5).toFixed(3);
+  }
+
+  const subs=[
+    {s:0.20,e:1.96,t:'有人抱怨父亲不供他读书'},
+    {s:1.96,e:3.02,t:'不给他钱'},
+    {s:3.24,e:5.40,t:'那个亲戚回了他一句话'},
+    {s:5.40,e:7.02,t:'让人<span class="g">如听雷霆</span>'},
+    {s:7.08,e:8.70,t:'我感谢我的父亲'},
+    {s:8.88,e:11.82,t:'毕竟他没在我出生时就<span class="rk">抛弃我</span>'},
+    {s:12.28,e:13.64,t:'养育了我这么大'},
+    {s:13.64,e:16.42,t:'我们今天太多人的内耗和委屈'},
+    {s:16.48,e:18.60,t:'本质上只有一个原因'},
+    {s:18.60,e:20.16,t:'你把太多的<span class="g">特权</span>'},
+    {s:20.16,e:21.70,t:'活成了<span class="rk">理所当然</span>'},
+    {s:22.00,e:23.68,t:'把时间往前推两百年'},
+    {s:23.68,e:26.00,t:'这片土地上的<span class="rk">识字率只有 1%</span>'},
+    {s:26.00,e:26.88,t:'把地理坐标'},
+    {s:26.88,e:29.48,t:'在地球上稍微往旁边偏一点'},
+    {s:29.48,e:31.78,t:'你可能正出生在<span class="rk">战火纷飞的中东</span>'},
+    {s:31.84,e:33.34,t:'或者<span class="rk">赤贫的非洲</span>'},
+    {s:33.76,e:35.20,t:'甚至在基因轮盘里'},
+    {s:35.20,e:36.92,t:'你能<span class="g">全须全尾</span>地生下来'},
+    {s:36.92,e:38.82,t:'没有先天的畸形与恶疾'},
+    {s:39.04,e:42.06,t:'已经中了全人类<span class="g">最罕见的生存彩票</span>'},
+    {s:42.08,e:43.72,t:'向前向后几千年'},
+    {s:43.72,e:46.00,t:'人类历史上也只有这短短几十年'},
+    {s:46.00,e:48.44,t:'给了你这样一个<span class="g">低摩擦</span>'},
+    {s:48.44,e:49.72,t:'甚至<span class="g">零摩擦</span>的时代'},
+    {s:49.72,e:52.62,t:'敞口！你今天花几块钱'},
+    {s:52.64,e:55.20,t:'就能跟人类历史上<span class="g">最高智能的模型</span>'},
+    {s:55.20,e:56.38,t:'平等对话'},
+    {s:56.44,e:57.64,t:'你有多少真本事'},
+    {s:57.64,e:58.64,t:'就能在这个网络里'},
+    {s:58.64,e:61.26,t:'拿到多大维度的<span class="g">杠杆和回报</span>'},
+    {s:61.48,e:62.66,t:'所有的喜欢'},
+    {s:62.72,e:63.96,t:'所有的被看见'},
+    {s:63.96,e:65.68,t:'每一桩每一件'},
+    {s:65.68,e:68.62,t:'都是<span class="g">极其昂贵的恩赐与偶然</span>'},
+    {s:68.76,e:70.70,t:'但请你<span class="rk">极其清醒</span>地记住'},
+    {s:70.72,e:72.08,t:'占用了社会资源'},
+    {s:72.08,e:74.50,t:'却没创造足够的正向价值'},
+    {s:74.80,e:77.66,t:'客观上你就是在<span class="rk">让世界加速下坠</span>'},
+    {s:77.76,e:78.72,t:'马斯克曾说'},
+    {s:78.72,e:80.12,t:'他一生努力的核心'},
+    {s:80.12,e:82.64,t:'就是想让这个宇宙更多地落进'},
+    {s:82.64,e:85.68,t:'<span class="g">善意的概率流</span>里'},
+    {s:85.68,e:86.64,t:'更高的能力'},
+    {s:86.64,e:87.16,t:'同样意味着'},
+    {s:87.16,e:89.62,t:'你可以给世界带来<span class="rk">毁灭性的灾难</span>'},
+    {s:90.00,e:90.96,t:'<span class="rk">德不配位</span>'},
+    {s:90.96,e:92.30,t:'<span class="rk">必遭清算</span>'},
+    {s:92.32,e:93.28,t:'做有德之人'},
+    {s:93.28,e:95.86,t:'是你终身面对的<span class="g">唯一选择</span>'},
+    {s:96.20,e:97.30,t:'所谓感恩'},
+    {s:97.32,e:99.16,t:'从来不是<span class="rk">廉价的安慰</span>'},
+    {s:99.16,e:102.32,t:'那是你看见自己处境的极端侥幸后'},
+    {s:102.32,e:104.74,t:'生发出的<span class="g">无限敬畏与自尊</span>'},
+    {s:105.20,e:107.74,t:'别再无病呻吟了，<span class="rk">打起精神来</span>'},
+    {s:108.04,e:109.94,t:'吃到了<span class="g">时代顶级的红利</span>'},
+    {s:110.04,e:111.20,t:'做有德之人'},
+    {s:111.20,e:113.02,t:'<span class="g">把善意还给世界</span>'},
+    {s:113.80,e:114.72,t:'我是骁清 Finn'},
+    {s:114.72,e:116.24,t:'感兴趣的，进粉丝群'},
+    {s:116.24,e:117.31,t:'<span class="g">一起探讨成长</span>'}
+  ];
+  function renderSub(t){const el=q('subtitle');let cur=null;for(const s of subs){if(t>=s.s&&t<s.e){cur=s;break;}}if(cur){el.innerHTML=cur.t;el.style.opacity=1;}else el.style.opacity=0;}
+
+  const beamWin=[{at:13.64},{at:42.06},{at:68.62},{at:95.86},{at:113.02}];
+  function renderBeam(t){const b=q('beam');let act=false;for(const w of beamWin){const d=t-w.at;if(d>=-.3&&d<=.9){act=true;b.style.opacity=d<0?0:1;b.style.transform=`translateX(${(d+.3)/1.2*100}%)`;}}if(!act)b.style.opacity=0;}
+
+  function renderFrame(time){const t=clamp(Number(time)||0,0,total);
+    scenes.forEach((id,i)=>{const act=t>=starts[i]&&t<(i===scenes.length-1?total:starts[i+1]);q(id).classList.toggle('active',act);});
+    if(t<13.64)s1(t);else if(t<42.06)s2(t);else if(t<68.62)s3(t);else if(t<95.86)s4(t);else if(t<113.02)s5(t);else s6(t);
+    renderSub(t);renderBeam(t);
+  }
+  window.renderFrame=renderFrame;renderFrame(0);
+})();
+</script>
+</body>
+</html>

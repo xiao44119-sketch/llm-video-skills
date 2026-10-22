@@ -1,0 +1,6 @@
+# 合成本身零依赖(纯标准库 + ffmpeg)。以下仅质检/自动重roll/悬停/反馈需要:
+numpy
+sherpa-onnx
+pypinyin
+# 系统另需 ffmpeg(自行安装, 在 PATH 里)
+# 模型另需(见 README 第3步): models/campplus_zh-cn_16k.onnx + C:\Users\Public\asr-paraformer-ts\{model.int8.onnx,tokens.txt}

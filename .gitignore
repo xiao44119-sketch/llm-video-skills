@@ -1,0 +1,24 @@
+# Large AI Models & Weights
+*.onnx
+*.bin
+*.pt
+*.pth
+*.safetensors
+
+# Media Outputs
+*.mov
+*.mp4
+*.wav
+*.m4a
+*.avi
+*.zip
+*.tar.gz
+
+# Cache & Renders
+__pycache__/
+*.pyc
+node_modules/
+.DS_Store
+renders/
+tmp/
+output/
